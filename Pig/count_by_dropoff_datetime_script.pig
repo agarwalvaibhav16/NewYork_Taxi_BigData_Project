@@ -1,0 +1,4 @@
+data = load 'trip_data_12.csv'  using PigStorage() as (medallion: chararray, hack_license: chararray, vendor_id: chararray, rate_code: chararray, store_and_fwd_flag: chararray, pickup_datetime: chararray, dropoff_datetime: chararray, passenger_count: chararray, trip_time_in_secs: chararray, trip_distance: chararray, pickup_longitude: chararray, pickup_latitude: chararray, dropoff_longitude: chararray, dropoff_latitude: chararray);
+GroupByDropoffDatetime = GROUP data BY dropoff_datetime;
+CountByDropoffDatetime = FOREACH GroupByDropoffDatetime GENERATE group, COUNT (data);
+STORE CountByDropoffDatetime INTO 'count_by_dropoff_datetime' USING PigStorage();

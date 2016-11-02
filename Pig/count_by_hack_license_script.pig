@@ -1,0 +1,4 @@
+data = load 'clean_data' using PigStorage() as (rank: long, medallion: chararray, hack_license: chararray, vendor_id: chararray, rate_code: chararray, store_and_fwd_flag: chararray, pickup_datetime: chararray, dropoff_datetime: chararray, passenger_count: chararray, trip_time_in_secs: chararray, trip_distance: chararray, pickup_longitude: chararray, pickup_latitude: chararray, dropoff_longitude: chararray, dropoff_latitude: chararray);
+GroupByHackLicense = GROUP data BY hack_license;
+CountByHackLicense = FOREACH GroupByHackLicense GENERATE group, COUNT (data);
+STORE CountByHackLicense INTO 'count_by_hack_license' USING PigStorage();

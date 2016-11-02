@@ -1,0 +1,15 @@
+raw_data = load 'trip_data_12.csv' using PigStorage(',') as (medallion: chararray, hack_license: chararray, vendor_id: chararray, rate_code: chararray, store_and_fwd_flags: chararray, pickup_datetime: chararray, dropoff_datetime: chararray, passenger_count: chararray, trip_time_in_secs: float, trip_distance: float, pickup_longitude: chararray, pickup_latitude: chararray, dropoff_longitude: chararray, dropoff_latitude: chararray);
+
+limited_data = limit raw_data 100;
+
+ranked = rank limited_data;
+
+data = Filter ranked by (rank_limited_data > 1);
+
+dist_time_driver_data= FOREACH data GENERATE $1, $9 ,$10;
+
+D= GROUP dist_time_driver_data BY medallion, 
+
+speed = FOREACH D GENERATE FLATTEN(group), SUM($1.$1),SUM($1.$2);
+
+average_speed = FOREACH speed GENERATE $0 , $2/($1*60*60) as avg_speed;
