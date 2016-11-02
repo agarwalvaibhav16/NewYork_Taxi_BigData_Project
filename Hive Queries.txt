@@ -1,0 +1,186 @@
+
+
+
+Top 5 Number of Rides per Day
+select pickup_date, count(*)c from trip_data group by pickup_date order by c desc limit 5;
+
+Top 5 Number of Rides per Medallion
+select medallion, count(*)c from trip_data group by medallion order by c desc limit 5;
+
+Top 5 Number of Rides per Hack License
+select hack_license, count(*)c from trip_data group by hack_license order by c desc limit 5;
+
+
+Number of Medallion Per Day (Cars used on the day)
+select pickup_date, count(distinct medallion) from trip_data group by pickup_date;
+
+Number of Hack License (Drivers worked on the day)
+select pickup_date, count(distinct hack_license) from trip_data group by pickup_date;
+
+
+Top 5 Number of Medallion per Hack License
+select hack_license, count(distinct medallion)c from trip_data group by hack_license order by c desc limit 5;
+
+Top 5 Number of Hack License per Medallion
+select medallion, count(distinct hack_license)c from trip_data group by medallion order by c desc limit 5;
+
+Number of Rides per Medallion per Day
+select medallion, pickup_date, count(*)c from trip_data group by medallion, pickup_date;
+
+Number of Rides per Hack License per Day
+select hack_license, pickup_date, count(*)c from trip_data group by hack_license, pickup_date;
+
+Number of Rides per Vendor per Day
+select vendor_id, pickup_date, count(*)c from trip_data group by vendor_id, pickup_date;
+
+
+
+Number of Rides to Airport Per Day
+select pickup_date, count(*)c from trip_data where rate_code=2 group by pickup_date;
+
+
+
+
+Average Number of Rides to Airport per Day per Medallion
+select sub.medallion, avg(sub.c) from (select medallion, pickup_date, count(*)c from trip_data where rate_code=2 group by medallion, pickup_date)sub group by sub.medallion;
+
+Average Number of Rides per Day per Hack License
+select sub.hack_license, avg(sub.c) from (select hack_license, pickup_date, count(*)c from trip_data group by hack_license, pickup_date)sub group by sub.hack_license;
+
+
+Average Number of Rides per Day per Vendor
+select sub.vendor_id, avg(sub.c) from (select vendor_id, pickup_date, count(*)c from trip_data group by vendor_id, pickup_date)sub group by sub.vendor_id;
+
+Average Number of Rides per Day per Passenger Count
+select sub.passenger_count, avg(sub.c) from (select passenger_count, pickup_date, count(*)c from trip_data group by passenger_count pickup_date)sub group by sub.passenger_count;
+
+
+Top 5 Average Number of Rides per Day per Medallion
+select sub.medallion, avg(sub.c)d from (select medallion, pickup_date, count(*)c from trip_data group by medallion, pickup_date)sub group by sub.medallion order by d desc limit 5;
+
+Top 5 Average Number of Rides to Airport per Day per Medallion
+select sub.medallion, avg(sub.c)d from (select medallion, pickup_date, count(*)c from trip_data where rate_code=2 group by medallion, pickup_date)sub group by sub.medallion order by d desc limit 5;
+
+Top 5 Average Number of Rides per Day per Hack License
+select sub.hack_license, avg(sub.c) from (select hack_license, pickup_date, count(*)c from trip_data group by hack_license, pickup_date)sub group by sub.hack_license order by c desc limit 5;
+
+
+
+Total Distance
+select sum(trip_distance) from trip_data;
+
+Total Distance Per Vendor
+select vendor_id, sum(trip_distance) from trip_data group by vendor_id;
+
+Total Distance Per Hack License
+select hack_license, sum(trip_distance) from trip_data group by hack_license;
+
+Total Distance Per Medallion
+select medallion, sum(trip_distance)c from trip_data group by medallion;
+
+Total Distance Per Rate Code
+select rate_code, sum(trip_distance)c from trip_data group by rate_code;
+
+Total Distance Per Day
+select pickup_date, sum(trip_distance)c from trip_data group by pickup_date;
+
+Total Distance Per Passenger Count
+select passenger_count, sum(trip_distance)c from trip_data group by passenger_count;
+
+Total Distance Per Vendor Per Day
+select vendor_id, pickup_date, sum(trip_distance)c from trip_data group by vendor_id, pickup_date;
+
+Top 5 Total Distance Per Hack License
+select hack_license, sum(trip_distance) from trip_data group by hack_license order by c desc limit 5;
+
+Top 5 Total Distance Per Medallion
+select medallion, sum(trip_distance)c from trip_data group by medallion order by c desc limit 5;
+
+Top 5 Total Distance Per Day
+select pickup_date, sum(trip_distance)c from trip_data group by pickup_date order by c desc limit 5;
+
+
+Average Distance Per Rate Code
+select rate_code, avg(trip_distance)c from trip_data group by rate_code;
+
+Average Distance Per Ride Per Day for each Day
+select pickup_date, avg(trip_distance)c from trip_data group by pickup_date;
+
+Average Distance Per Ride Per Day
+select avg(sub.c) from(select pickup_date, sum(trip_distance)c from trip_data group by pickup_date)sub;
+
+Average Distance Per Passenger Count
+select passenger_count, avg(trip_distance)c from trip_data group by passenger_count;
+
+Top 5 Average Total Distance Per Hack License
+select hack_license, avg(trip_distance)c from trip_data group by hack_license order by c desc limit 5;
+
+Top 5 Average Total Distance Per Medallion
+select medallion, avg(trip_distance)c from trip_data group by medallion order by c desc limit 5;
+
+Top 5 Average Total Distance Per Day
+select pickup_date, avg(trip_distance)c from trip_data group by pickup_date order by c desc limit 5;
+
+Top 5 Total Distance Per Hack License Per Day
+select hack_license, pickup_date, sum(trip_distance)c from trip_data group by hack_license, pickup_date order by c desc limit 5;
+
+Top 5 Total Distance Per Medallion Per Day
+select medallion, pickup_date, sum(trip_distance)c from trip_data group by medallion, pickup_date order by c desc limit 5;
+
+Total Time
+select sum(trip_time_in_secs) from trip_data;
+
+Total Time Per Vendor
+select vendor_id, sum(trip_time_in_secs)c from trip_data group by vendor_id;
+
+Total Time Per Hack License
+select hack_license, sum(trip_time_in_secs)c from trip_data group by hack_license;
+
+Total Time Per Medallion
+select medallion, sum(trip_time_in_secs)c from trip_data group by medallion;
+
+Total Time Per Rate Code
+select rate_code, sum(trip_time_in_secs)c from trip_data group by rate_code;
+
+Total Time Per Day
+select pickup_date, sum(trip_time_in_secs)c from trip_data group by pickup_date;
+
+
+Average Time Per Passenger Count
+select passenger_count, avg(trip_time_in_secs)c from trip_data group by passenger_count;
+
+Average Time Per Vendor Per Day
+select vendor_id, pickup_date, avg(trip_time_in_secs)c from trip_data group by vendor_id, pickup_date;
+
+Average Time Per Hack License Per Day
+select hack_license, pickup_date, avg(trip_time_in_secs)c from trip_data group by hack_license, pickup_date;
+
+Average Time Per Medallion Per Day
+select medallion, pickup_date, avg(trip_time_in_secs)c from trip_data group by medallion, pickup_date;
+
+
+Average Time Per Passenger Count Per Day
+select passenger_count, pickup_date, avg(trip_time_in_secs)c from trip_data group by passenger_count, pickup_date;
+
+Top 5 Average Total Time Per Hack License
+select hack_license, avg(trip_time_in_secs)c from trip_data group by hack_license order by c desc limit 5;
+
+Top 5 Average Total Time Per Medallion
+select medallion, avg(trip_time_in_secs)c from trip_data group by medallion order by c desc limit 5;
+
+Top 5 Average Total Time Per Day
+select pickup_date, avg(trip_time_in_secs)c from trip_data group by pickup_date order by c desc limit 5;
+
+Total Time Per Vendor Per Day
+select vendor_id, pickup_date, sum(trip_time_in_secs)c from trip_data group by vendor_id, pickup_date;
+
+Total Time Per Hack License Per Day
+select hack_license, pickup_date, sum(trip_time_in_secs)c from trip_data group by hack_license, pickup_date;
+
+Total Time Per Medallion Per Day
+select medallion, pickup_date, sum(trip_time_in_secs)c from trip_data group by medallion, pickup_date;
+
+
+
+
+
