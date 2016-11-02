@@ -1,2 +1,7 @@
 # NewYork_Taxi_BigData_Project
-Big Data Project on New York Taxi Dataset
+Engineering Big Data Systems
+
+The different components of Hadoop Ecosystems are used to analyze the New york taxi data set.
+
+
+
